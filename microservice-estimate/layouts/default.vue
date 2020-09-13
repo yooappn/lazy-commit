@@ -1,5 +1,5 @@
 <template>
-  <div class="uk-container ui-container-center">
+  <div class="uk-container ui-container-center uk-margin-bottom">
     <Header class="uk-margin-bottom" />
     <div class="uk-grid" data-uk-grid-margin="">
       <Nuxt class="uk-width-medium-3-4" />

@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "nuxt",
-    "dev-wsl": "nuxt -H 172.27.230.45",
+    "dev-wsl": "nuxt -H 172.27.230.190",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "start": "nuxt start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --config jest.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +18,11 @@
     "nuxt": "^2.14.4",
     "nuxt-vuikit": "^1.1.0",
     "vue-chartjs": "^3.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.2"
   }
 }

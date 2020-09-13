@@ -1,9 +1,13 @@
 <template>
   <div class="uk-row-first">
     <div class="uk-margin uk-card uk-card-default uk-card-body">
-      <h3>Hello</h3>
+      <h3>
+        <vk-icon icon="chevron-down" style="cursor:pointer;" @click="toggleParams(false)" v-if="form.paramsCollapse" ></vk-icon>
+        <vk-icon icon="chevron-up" style="cursor:pointer;" @click="toggleParams(true)" v-if="!form.paramsCollapse" ></vk-icon>
+        Parameters
+       </h3>
 
-      <div class="uk-margin">
+      <div class="uk-margin" v-if="form.paramsCollapse">
         <div class="uk-form-controls uk-width-1-2@s">
           <label class="uk-form-label" for="form-stacked-text">Module Numbers</label>
           <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..." v-model="config.module.from" >
@@ -28,7 +32,6 @@
     <div class="uk-margin uk-card uk-card-default uk-card-body">
       <h3>Chart</h3>
 
-
       <vk-grid divided class="uk-child-width-expand@s">
         <div>
           <h4>Monolith</h4>
@@ -43,7 +46,13 @@
 
     </div>
 
+    <div class="uk-margin uk-card uk-card-default uk-card-body">
+      <h3>Effective Simulation</h3>
+
+    </div>
+
   </div>
+
 </template>
 
 
@@ -55,6 +64,9 @@ export default {
 
   data() {
    return {
+      form: {
+        paramsCollapse: false
+      },
       chartData: {
         labels: [ 'Jan', 'Feb'],
         datasets: [
@@ -70,5 +82,12 @@ export default {
     }
   },
 
+  methods: {
+    toggleParams(flg) {
+      this.form.paramsCollapse = flg;
+      console.log(this.form);
+    }
+
+  }
 }
 </script>
