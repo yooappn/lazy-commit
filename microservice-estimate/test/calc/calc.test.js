@@ -1,10 +1,9 @@
-import { M } from '@/calc/matrix.js';
+import { M, MZ } from '@/calc/matrix.js';
 
 
 describe('Matrix Class', () => {
 
-    test('Matrix', () => {
-
+    test('M function', () => {
         const m1 = M([
             [1, 1],
             [2, 2]
@@ -12,6 +11,11 @@ describe('Matrix Class', () => {
     
         expect(m1.values[0]).toEqual([1, 1]);
         expect(m1.values[1]).toEqual([2, 2]);
+    });
+
+    test('MZ function', () => {
+        const m = MZ(2,2);
+        expect([[0, 0], [0, 0]]).toEqual(m.values);
     });
 
     test('Matrix add', () => {
@@ -30,8 +34,22 @@ describe('Matrix Class', () => {
             [4, 4]
         ]);
 
-        m1.add(m2);
-        expect(m1.values).toEqual(exp.values);
+        const act = m1.add(m2);
+        expect(exp.values).toEqual(act.values);
     });
 
+    test('Matrix mul', () => {
+        const m1 = M([
+            [1, 1],
+            [2, 2]
+        ]);
+
+        const m2 = M([
+            [1, 2],
+            [1, 2]
+        ]);
+
+        const act = m1.mul(m2);
+        expect([[2, 4],[4, 8]]).toEqual(act.values);
+    })
 });
