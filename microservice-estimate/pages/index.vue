@@ -1,50 +1,9 @@
 <template>
   <div class="uk-row-first">
-    <div class="uk-margin uk-card uk-card-default uk-card-body">
-      <h3>
-        <vk-icon icon="chevron-down" style="cursor:pointer;" @click="toggleParams(false)" v-if="form.paramsCollapse" ></vk-icon>
-        <vk-icon icon="chevron-up" style="cursor:pointer;" @click="toggleParams(true)" v-if="!form.paramsCollapse" ></vk-icon>
-        Parameters
-       </h3>
+    <Parameters />
+    <Compare />
 
-      <div class="uk-margin" v-if="form.paramsCollapse">
-        <div class="uk-form-controls uk-width-1-2@s">
-          <label class="uk-form-label" for="form-stacked-text">Module Numbers</label>
-          <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..." v-model="config.module.from" >
-        </div>
-        <div class="uk-form-controls uk-width-1-2@s">
-          <label class="uk-form-label" for="form-stacked-text">Module Numbers</label>
-          <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..." v-model="config.module.to" >
-        </div>
-      </div>
-
-   </div>
-
-    <div class="uk-margin uk-card uk-card-default uk-card-body">
-      <h3>Compare Point</h3>
-
-      <vk-grid divided class="uk-child-width-expand@s">
-        <div>Item1</div>
-        <div>Item2</div>
-      </vk-grid>
-    </div>
-
-    <div class="uk-margin uk-card uk-card-default uk-card-body">
-      <h3>Chart</h3>
-
-      <vk-grid divided class="uk-child-width-expand@s">
-        <div>
-          <h4>Monolith</h4>
-
-
-          <BarChart :chartData="chartData"/>
-        </div>
-        <div>
-          <h4>Microservice</h4>
-        </div>
-      </vk-grid>
-
-    </div>
+    <PersonHours />
 
     <div class="uk-margin uk-card uk-card-default uk-card-body">
       <h3>Effective Simulation</h3>
@@ -58,35 +17,16 @@
 
 
 <script>
-import BarChart from '@/components/BarChart.js';
 
 export default {
 
-  data() {
-   return {
-      form: {
-        paramsCollapse: false
-      },
-      chartData: {
-        labels: [ 'Jan', 'Feb'],
-        datasets: [
-            {label: ['Data One'], data: [40]},
-        ],
-      },
-    };
-  },
 
   computed: {
-    config() {
-      return this.$store.state.data.config;
-    }
+
   },
 
   methods: {
-    toggleParams(flg) {
-      this.form.paramsCollapse = flg;
-      console.log(this.form);
-    }
+
 
   }
 }

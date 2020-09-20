@@ -3,9 +3,14 @@ const { reactiveProp } = mixins;
 
 export default {
   extends: Bar,
-   mixins: [reactiveProp],
-   props: ['chartdata', 'options'],
-   mounted() {
-     this.renderChart(this.chartdata, this.options);
-   }
+  mixins: [reactiveProp],
+  props: ['options'],
+  mounted() {
+     this.renderChart(this.chartData, this.options);
+  },
+  methods : {
+    render() {
+      this.renderChart(this.chartData, this.options);
+    }
+  }
 }
