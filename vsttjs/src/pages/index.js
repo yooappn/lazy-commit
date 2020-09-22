@@ -1,0 +1,15 @@
+import React from "react"
+
+import { Text } from '@chakra-ui/core';
+
+import Layout from '../components/layout';
+
+export default function Home() {
+  return (
+    <Layout>
+      <Text fontSize="xl">Hello Gatsby!</Text>
+      <p>What a world.</p>
+      <img src="https://source.unsplash.com/random/400x200" alt="" />
+    </Layout>
+  );
+}
