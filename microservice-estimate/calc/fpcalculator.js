@@ -1,4 +1,4 @@
-import { ifpug, calcUFP } from './functionpoint';
+import { ifpug, calcUFP, GSC } from './functionpoint';
 
 const gscObj = (dc, ddp, p, huc, tr, ode, eue, ou, cp, re, ist, oe, ms, fc) => {
     return {
@@ -11,7 +11,7 @@ const gscObj = (dc, ddp, p, huc, tr, ode, eue, ou, cp, re, ist, oe, ms, fc) => {
         endUserEfficiency : eue,
         onlineUpdate : ou,
         complexProcessing : cp,
-        reusability= re, // 10
+        reusability: re, // 10
         installationEase : ist,
         operationalEase : oe,
         multipleSites : ms,
@@ -40,12 +40,16 @@ const applyMonoInfuence = (moduleCount) => {
     const mono = _params.models.mono.fp; 
     const eio = mono.externalIO;
     const ilf = mono.ilf;
-    const mdl = [eio, eio, eio, ilf, ilf, ilf, mono.records, ilf];
     const ret = [];
+    const mdl = ifpug(eio, eio, eio, ilf, ilf, ilf, mono.records, ilf);
     for (let i = 0; i < moduleCount ; i++) {
         ret.push(Array.from(mdl));
     }
     return ret;
+};
+
+const gsc = (fpModel) => {
+    return new GSC(_params.models[fpModel].gsc);
 };
 
 const fpCalc = (moduleCount, fpModel, gsc, fpCalcFn = undefined) => {
@@ -55,4 +59,21 @@ const fpCalc = (moduleCount, fpModel, gsc, fpCalcFn = undefined) => {
     return gsc.vaf() * calcUFP(fps);
 };
 
-export { fpCalc };
+const eachFpCalc = (from, to, perHour = 10) => {
+    const ret = {mono: [], micro: []};
+    const monoGsc = gsc(_params.models.mono);
+    const microGsc = gsc(_params.models.micro)
+    for (let n = from; n <= to ; n++) {
+        ret.mono.push(fpCalc(n, ret.mono, monoGsc));
+        //ret.micro.push(fpCalc(n, ret.micro, _params.models.micro.gsc));
+    }
+    return ret;
+};
+
+const personHour = (p, perHour) => {return Math.round(p / perHour); };
+
+const personHours = (fps, perHour) => {
+    return fps.map(p => { return Math.round(p / perHour); })
+};
+
+export { fpCalc, eachFpCalc, gsc, personHours };

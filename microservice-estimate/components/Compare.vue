@@ -10,7 +10,7 @@
         <h3 class="uk-heading-line"><span>Function point</span></h3>
 
         <vk-grid divided class="uk-child-width-expand@s">
-            <div>Item1<input class="uk-input" type="text"/></div>
+            <div>Item1<input class="uk-input" type="text" @input="recalc();" /></div>
             <div>Item2<input class="uk-input" type="text"/></div>
         </vk-grid>
 
@@ -28,6 +28,8 @@
 
 <script>
 
+
+
 export default {
 
   data() {
@@ -40,13 +42,19 @@ export default {
 
   computed: {
     config() {
-      return this.$store.state.data.config;
+      return this.$store.getters['data/config'];
     }
   },
 
   methods : {
     toggleParams(flg) {
       this.form.collapse = flg;
+    },
+    recalc() {
+      const data = {from: this.config.module.from, to: this.config.module.to};
+
+      console.log('reCalc....');
+      console.log(data);
     }
   }
 }

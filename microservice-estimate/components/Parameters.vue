@@ -9,11 +9,11 @@
         <vk-grid class="uk-child-width-expand@s" v-if="form.collapse">
             <div class="uk-form-controls">
             <label class="uk-form-label" for="form-stacked-text">Module Number from</label>
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..." v-model="config.module.from" >
+            <input class="uk-input" id="form-stacked-text" type="number" name="from" :value="config.module.from" @input="update" >
             </div>
             <div class="uk-form-controls">
             <label class="uk-form-label" for="form-stacked-text">to</label>
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="Some text..." v-model="config.module.to" >
+            <input class="uk-input" id="form-stacked-text" type="text" :value="config.module.to" >
             </div>
         </vk-grid>
    </div>
@@ -33,7 +33,8 @@ export default {
 
   computed: {
     config() {
-      return this.$store.state.data.config;
+      return this.$store.getters['data/config'];
+      //return this.$store.state.data.config;
     }
   },
 
@@ -41,6 +42,11 @@ export default {
     toggleParams(flg) {
       this.form.collapse = flg;
       console.log(this.form.collapse);
+    },
+    update(e) {
+      const data = {};
+      data[e.target.name] = parseInt(e.data);
+      this.$store.commit('data/module', data);
     }
   }
 

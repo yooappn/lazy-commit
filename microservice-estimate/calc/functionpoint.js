@@ -8,7 +8,7 @@ const _v = {
   fp: {
     data : {
         ilf: {low: 7, avg: 10, high: 15},
-        elf: {low: 5, avg: 7, high: 10}
+        eif: {low: 5, avg: 7, high: 10}
     },
     tx : {
         ei : {low: 3, avg: 4, high: 6},
@@ -16,8 +16,6 @@ const _v = {
         eq : {low: 3, avg: 4, high: 6}
     }
   }
-
-
 };
 
 class GSC {
@@ -33,7 +31,7 @@ class GSC {
         endUserEfficiency : vals.endUserEfficiency,
         onlineUpdate : vals.onlineUpdate,
         complexProcessing : vals.complexProcessing,
-        reusability= vals.reusability, // 10
+        reusability: vals.reusability, // 10
         installationEase : vals.installationEase,
         operationalEase : vals.operationalEase,
         multipleSites : vals.multipleSites,
@@ -43,7 +41,7 @@ class GSC {
     tdi() {
         return Object.keys(this.data)
         .map(k => { return this.data[k]; })
-        .resuce((a,b) => { return a + b; });
+        .reduce((a,b) => { return a + b; });
     }
 
     vaf() {
@@ -70,7 +68,7 @@ class GSC {
 // ftr : count of ilf number
 //
 const ifpug = (ei, eo, eq, ilf, eif, det, ret, ftr) => {
-    retunr [ei, eo, eq, ilf, eif, det, ret, ftr];
+    return [ei, eo, eq, ilf, eif, det, ret, ftr];
 }
 
 const calcUFP = (fps) => {
@@ -83,9 +81,16 @@ const calcFP = (fp) => {
 
     const point = _v.fp.data.ilf[dataCpx] * fp[_v.idx.ilf]
      + _v.fp.data.eif[dataCpx] * fp[_v.idx.eif]
-     + _v.fp.data.ei[txCpx] * fp[_v.idx.ei]
-     + _v.fp.data.eo[txCpx] * fp[_v.idx.eo]
-     + _v.fp.data.eq[txCpx] * fp[_v.idx.eq];
+     + _v.fp.tx.ei[txCpx] * fp[_v.idx.ei]
+     + _v.fp.tx.eo[txCpx] * fp[_v.idx.eo]
+     + _v.fp.tx.eq[txCpx] * fp[_v.idx.eq];
+     /*
+     console.log('cof:ilf>' + _v.fp.data.ilf[dataCpx]
+        + ',ilf:' + fp[_v.idx.ilf]
+        + '| cof:eif>' + _v.fp.data.eif[dataCpx] + ',eif:' + fp[_v.idx.eif]
+        + '| cof:ei>' + _v.fp.tx.ei[txCpx] + ',ei:' + fp[_v.idx.ei]
+        + '| cof:eo>' + _v.fp.tx.eo[txCpx] + ',eo:' + fp[_v.idx.eo]
+        + '| cof:eq>' + _v.fp.tx.eq[txCpx] + ',eq' + fp[_v.idx.eq]);*/
 
     return point;
 }

@@ -8,7 +8,7 @@
             </div>
         </vk-grid>
 
-        <LineChart ref="chart" :chart-data="phData" :options="options"/>
+        <LineChart ref="chart" :chart-data="this.dmy" :options="options"/>
 
     </div>
 
@@ -40,8 +40,21 @@ export default {
     };
   },
   computed : {
+      dmy() {
+        return {
+            labels: [ '1', '2', '3', '4'],
+            datasets: [
+                {label: 'Mono', data: [40, 30, 20, 10] },
+                {label: 'Micro', data: [10, 20, 22, 28] }
+            ]
+        };
+      },
       phData() {
-        const fp = this.$store.state.data.personHours.mono;
+        //const fp = this.$store.state.data.personHours.mono;
+        const fp = [
+            {label: 'Mono', data: [40, 30, 20, 10] },
+            {label: 'Micro', data: [10, 20, 22, 28] }
+        ];
 
         const from = this.$store.state.data.config.from;
         const to = this.$store.state.data.config.to;
@@ -51,12 +64,10 @@ export default {
             lbl.push(n);
         }
 
-        return {
+        const ret = {
             chartData: {
                 labels: lbl,
-                datasets: [
-                {label: 'Mono', data: fp },
-                ],
+                datasets: fp
             },
             options: {
                 layout: {
@@ -69,6 +80,8 @@ export default {
                 color: ['blue', 'green']
             }
         };
+        console.log(ret);
+        return ret;
       }
   },
   methods : {
