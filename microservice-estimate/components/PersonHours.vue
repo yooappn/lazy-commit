@@ -8,7 +8,7 @@
             </div>
         </vk-grid>
 
-        <LineChart ref="chart" :chart-data="this.dmy" :options="options"/>
+        <LineChart ref="chart" :chart-data="chartData" :options="options"/>
 
     </div>
 
@@ -20,13 +20,6 @@ export default {
 
   data() {
    return {
-      chartData: {
-        labels: [ '1', '2', '3', '4'],
-        datasets: [
-            {label: 'Mono', data: [40, 30, 20, 10] },
-            {label: 'Micro', data: [10, 20, 22, 28] }
-        ],
-      },
       options: {
           layout: {
               padding: {top: 20, left: 20, right: 20, bottom: 20}
@@ -40,14 +33,10 @@ export default {
     };
   },
   computed : {
-      dmy() {
-        return {
-            labels: [ '1', '2', '3', '4'],
-            datasets: [
-                {label: 'Mono', data: [40, 30, 20, 10] },
-                {label: 'Micro', data: [10, 20, 22, 28] }
-            ]
-        };
+      chartData() {
+        const data = this.$store.getters['data/personHoursChartData'];
+        console.log(data);
+        return data;
       },
       phData() {
         //const fp = this.$store.state.data.personHours.mono;

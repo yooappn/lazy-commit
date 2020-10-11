@@ -48,24 +48,35 @@ const applyMonoInfuence = (moduleCount) => {
     return ret;
 };
 
+const applyMicroInfuence = (moduleCount) => {
+    const mdl = _params.models.micro.fp; 
+    const ret = [];
+    for (let i = 0; i < moduleCount ; i++) {
+        ret.push(Array.from(mdl));
+    }
+    return ret;
+};
+
 const gsc = (fpModel) => {
     return new GSC(_params.models[fpModel].gsc);
 };
 
 const fpCalc = (moduleCount, fpModel, gsc, fpCalcFn = undefined) => {
     // apply model influence
-    const fps = fpModel === 'mono' ? applyMonoInfuence(moduleCount) : [];
+    const fps = fpModel === 'mono' ? applyMonoInfuence(moduleCount) : applyMicroInfuence(moduleCount);
     // calc fp
     return gsc.vaf() * calcUFP(fps);
 };
 
 const eachFpCalc = (from, to, perHour = 10) => {
     const ret = {mono: [], micro: []};
-    const monoGsc = gsc(_params.models.mono);
-    const microGsc = gsc(_params.models.micro)
+    const monoGsc = gsc('mono');
+    const microGsc = gsc('micro')
     for (let n = from; n <= to ; n++) {
-        ret.mono.push(fpCalc(n, ret.mono, monoGsc));
-        //ret.micro.push(fpCalc(n, ret.micro, _params.models.micro.gsc));
+        const mono = fpCalc(n, 'mono', monoGsc);
+        const micro = fpCalc(n, 'micro', microGsc);
+        ret.mono.push({n, point: mono});
+        ret.micro.push({n, point: micro});
     }
     return ret;
 };

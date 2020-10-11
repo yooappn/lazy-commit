@@ -21,6 +21,12 @@
 
         <h3 class="uk-heading-line"><span>System Attributes</span></h3>
 
+        <vk-table :data="attrs">
+          <vk-table-column title="Name" cell="name"></vk-table-column>
+          <vk-table-column title="City" cell="city"></vk-table-column>
+          <vk-table-column title="State" cell="state"></vk-table-column>
+        </vk-table>
+
     </div>
 </div>
 </template>
@@ -36,7 +42,12 @@ export default {
     return {
       form: {
           collapse: false
-      }
+      },
+      attrs: [
+          { name: 'John A. Smith', city: 'San Francisco', state: 'CA' },
+          { name: 'Joan B. Jones', city: 'New York', state: 'NY' },
+          { name: 'Bob C. Uncle', city: 'Los Angeles', state: 'CA' }
+      ]
     };
   },
 

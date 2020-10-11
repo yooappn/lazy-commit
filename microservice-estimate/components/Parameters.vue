@@ -13,7 +13,7 @@
             </div>
             <div class="uk-form-controls">
             <label class="uk-form-label" for="form-stacked-text">to</label>
-            <input class="uk-input" id="form-stacked-text" type="text" :value="config.module.to" >
+            <input class="uk-input" id="form-stacked-text" type="number" name="to" :value="config.module.to" @input="update">
             </div>
         </vk-grid>
    </div>
@@ -35,7 +35,7 @@ export default {
     config() {
       return this.$store.getters['data/config'];
       //return this.$store.state.data.config;
-    }
+    } 
   },
 
   methods : {
@@ -46,7 +46,8 @@ export default {
     update(e) {
       const data = {};
       data[e.target.name] = parseInt(e.data);
-      this.$store.commit('data/module', data);
+      //this.$store.commit('data/module', data);
+      this.$store.dispatch('data/module', data);
     }
   }
 
