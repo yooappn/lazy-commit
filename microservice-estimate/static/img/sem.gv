@@ -1,0 +1,63 @@
+digraph SysAttrSem {
+rankdir="RL"
+#layout=neato
+node [shape=box]; srvv; sysa; values;
+node [shape=ellipse];
+
+
+{
+  mulf [label="Multiple Feature"];
+  uz [label="Usability"];
+  pdr [label="Product Requirements"];
+  col [label="Collaboration"]
+
+  srvv [label="Service Value"];
+
+  srvv -> mulf [label="0.9"];
+  srvv -> uz;
+  srvv -> pdr;
+  srvv -> col;
+}
+
+{
+   cost [label="Running Cost"];
+   op [label="Operation"];
+   dp [label="Deployment"];
+   fx [label="Flexibility"];
+   ru [label="Resusability"];
+
+
+   sysa [label="System Attributes"];
+
+   sysa -> cost;
+   sysa -> op;
+   sysa -> dp;
+   sysa -> fx;
+   sysa -> ru;
+}
+
+{
+    kw [label="Domain Knowledge"];
+    dzn [label="Design"];
+    dev [label="Develop"];
+    test [label="Testing"];
+    mt [label="Maintainability"];
+
+    tm [label="Team"];
+
+    tm -> kw;
+    tm -> dzn;
+    tm -> dev;
+    tm -> test;
+    tm -> mt;
+}
+
+
+values [label="Total Value"];
+
+
+values -> srvv;
+values -> sysa;
+values -> tm;
+
+}

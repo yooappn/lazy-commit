@@ -37,40 +37,6 @@ export default {
         const data = this.$store.getters['data/personHoursChartData'];
         console.log(data);
         return data;
-      },
-      phData() {
-        //const fp = this.$store.state.data.personHours.mono;
-        const fp = [
-            {label: 'Mono', data: [40, 30, 20, 10] },
-            {label: 'Micro', data: [10, 20, 22, 28] }
-        ];
-
-        const from = this.$store.state.data.config.from;
-        const to = this.$store.state.data.config.to;
-
-        const lbl = [];
-        for (let n = from; n <= to ; n++) {
-            lbl.push(n);
-        }
-
-        const ret = {
-            chartData: {
-                labels: lbl,
-                datasets: fp
-            },
-            options: {
-                layout: {
-                    padding: {top: 20, left: 20, right: 20, bottom: 20}
-                },
-                scales: {
-                    xAxes: [{ display: true }],
-                    yAxes: [{ display: true }],
-                },
-                color: ['blue', 'green']
-            }
-        };
-        console.log(ret);
-        return ret;
       }
   },
   methods : {

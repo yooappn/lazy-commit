@@ -30,7 +30,7 @@ const _params = {
         gsc: gscObj(3, 3, 4, 4, 3 /* 5 */, 5, 4, 4, 3, 2 /* 10 */, 4, 4, 1, 4),
        },
        micro: {
-        fp: ifpug(1, 1, 1, 0, 1, 2, 20, 4),
+        fp: ifpug(1, 1, 1, 1, 1, 2, 20, 4),
         gsc: gscObj(5, 5, 4, 4, 3 /* 5 */, 1, 4, 4, 1, 4 /* 10 */, 1, 1, 1, 1),
        }
     }
@@ -87,4 +87,33 @@ const personHours = (fps, perHour) => {
     return fps.map(p => { return Math.round(p / perHour); })
 };
 
-export { fpCalc, eachFpCalc, gsc, personHours };
+
+const gscParams = () => {
+    const gmono = gsc('mono');
+    const gmicro = gsc('micro');
+    return gmono.keys().map(k => {
+        return {name:k, mono: gmono.num(k), micro: gmicro.num(k)};
+      });  
+};
+
+const fpParams = () => {
+    const mono = applyMonoInfuence(1)[0];
+    const micro = applyMicroInfuence(1)[0];
+    const cols = ['external input', 'external output', 'external in Query',
+     'internal logical file/data', 'external interface file/data',
+      'not iteratable record' , 'iteratable record', 'count of internal data' ];
+
+    return cols.map((c,i) => {
+        return {name: c, mono: mono[i], micro: micro[i]};
+    });
+};
+
+const defaultFpParameters = () => {
+    return {
+        module: {from: 2, to:10},
+        fp: fpParams(),
+        gsc: gscParams()
+    };
+};
+
+export { fpCalc, defaultFpParameters, eachFpCalc, gsc, personHours };

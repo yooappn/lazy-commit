@@ -21,20 +21,17 @@
 
         <h3 class="uk-heading-line"><span>System Attributes</span></h3>
 
-        <vk-table :data="attrs">
-          <vk-table-column title="Name" cell="name"></vk-table-column>
-          <vk-table-column title="City" cell="city"></vk-table-column>
-          <vk-table-column title="State" cell="state"></vk-table-column>
+        <vk-table :data="gsc">
+          <vk-table-column title="Item" cell="name"></vk-table-column>
+          <vk-table-column title="Monolith" cell="mono"></vk-table-column>
+          <vk-table-column title="MicroServices" cell="micro"></vk-table-column>
         </vk-table>
 
     </div>
 </div>
 </template>
 
-
 <script>
-
-
 
 export default {
 
@@ -54,6 +51,11 @@ export default {
   computed: {
     config() {
       return this.$store.getters['data/config'];
+    },
+    gsc() {
+      const v = this.$store.getters['data/gscParams'];
+      console.log(v);
+      return v;
     }
   },
 

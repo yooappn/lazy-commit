@@ -47,6 +47,14 @@ class GSC {
     vaf() {
         return (this.tdi() * 0.01) + 0.65;
     }
+
+    keys() {
+        return Object.keys(this.data);
+    }
+
+    num(k) {
+        return this.data[k];
+    }
 }
 
 //
@@ -95,6 +103,7 @@ const calcFP = (fp) => {
     return point;
 }
 
+//const calcDataAndTxComplexi()
 
 const complexityOfData = (fp) => {
     const det = fp[_v.idx.det];

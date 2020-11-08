@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nuxt",
-    "dev-wsl": "nuxt -H 172.17.217.246",
+    "dev-wsl": "nuxt -H 172.22.224.173",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "start": "nuxt start",
