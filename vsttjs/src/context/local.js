@@ -1,6 +1,5 @@
 import Axios from 'axios';
 
-
 const _key = (ks) => {
   const c = {};
   ks.forEach((k) => {
@@ -13,8 +12,6 @@ const _key = (ks) => {
 const Key = _key(['sheet']);
 
 const setLocalData = (key, data) => {
-  console.log('setLocalData');
-  console.log(data);
   localStorage.setItem(key, JSON.stringify(data));
 };
 
