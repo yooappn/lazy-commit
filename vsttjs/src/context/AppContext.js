@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Key, getLocalData, loadData } from './local';
 
-const initData = (cb) => {
-  const cfg = getLocalData(Key.sheet)
-  loadData(cfg.sheet.url).then((result) => {
+const initData = (url = undefined, cb) => {
+  if (url === undefined) {
+    return;
+  }
+  loadData(url).then((result) => {
     cb(result.data.books);
   })
 };
@@ -12,6 +14,9 @@ const AppContext = React.createContext({});
 
 const AppProvider = ({children}) => {
   const cfg = getLocalData(Key.sheet)
+
+  console.log('cfg.....');
+  console.log(cfg);
 
   const appState = {
     data : [
@@ -23,7 +28,7 @@ const AppProvider = ({children}) => {
   const [config, setConfig] = useState(appState.sheet);
   const [rows, setRows] = useState(appState.data);
 
-  initData(setRows);
+  initData(cfg === undefined ? undefined: cfg.sheet.url, setRows);
 
   return (
     <AppContext.Provider value={{ config, setConfig, rows, setRows }} >

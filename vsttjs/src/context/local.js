@@ -13,13 +13,12 @@ const _key = (ks) => {
 const Key = _key(['sheet']);
 
 const setLocalData = (key, data) => {
-  console.log('setLocalData');
-  console.log(data);
   localStorage.setItem(key, JSON.stringify(data));
 };
 
 const getLocalData = (key) => {
-  return JSON.parse(localStorage.getItem(key));
+  const v = JSON.parse(localStorage.getItem(key));
+  return v === null ? undefined : v;
 };
 
 const loadData = (url) => {
