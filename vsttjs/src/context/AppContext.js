@@ -1,37 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Key, getLocalData, loadData } from './local';
+import { buildIndex } from './search';
 
-const initData = (url = undefined, cb) => {
-  if (url === undefined) {
+const appState = {
+  data : [
+    {title: 'aaaa'}, {title: 'bbb'}
+  ],
+  search: {engine: {}, result: []},
+  sheet: {url: ''}
+};
+
+const initData = (cb, ce) => {
+  const cfg = getLocalData(Key.sheet)
+
+  console.log('initData------');
+  console.log(cfg);
+
+  let url = '';
+  if (cfg !== null) {
+    url = cfg.hasOwnProperty('sheet') ? cfg.sheet.url : '' ;
+  }
+
+  if (cfg === null) {
+    ce({});
+    cb([]);
     return;
   }
-  loadData(url).then((result) => {
-    cb(result.data.books);
+  loadData(cfg.sheet.url).then((result) => {
+    const eg = buildIndex(result.data.books);
+    ce(eg);
+    cb([]);
   })
 };
+
 
 const AppContext = React.createContext({});
 
 const AppProvider = ({children}) => {
-  const cfg = getLocalData(Key.sheet)
-
-  console.log('cfg.....');
-  console.log(cfg);
-
-  const appState = {
-    data : [
-      {title: 'aaaa'}, {title: 'bbb'}
-    ],
-    sheet: {url: cfg === undefined ? '': cfg.sheet.url}
-  };
 
   const [config, setConfig] = useState(appState.sheet);
-  const [rows, setRows] = useState(appState.data);
+  const [rows, setRows] = useState(appState.search.result);
+  const [engine, setEngine] = useState(appState.search.engine);
 
-  initData(cfg === undefined ? undefined: cfg.sheet.url, setRows);
+  useEffect(() => {
+    initData(setRows, setEngine);
+  }, []);
 
   return (
-    <AppContext.Provider value={{ config, setConfig, rows, setRows }} >
+    <AppContext.Provider value={{ config, setConfig, rows, setRows, engine, setEngine }} >
       {children}
     </AppContext.Provider>
   )

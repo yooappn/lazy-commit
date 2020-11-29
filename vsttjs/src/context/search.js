@@ -1,15 +1,24 @@
 import * as JsSearch from "js-search";
 
 
-const buildIndex = ( data ) => {
-  const dataToSearch = new JsSearch.Search("isbn");
-  dataToSearch.indexStrategy = new JsSearch.PrefixIndexStrategy();
-  dataToSearch.sanitizer = new JsSearch.LowerCaseSanitizer();
-  dataToSearch.searchIndex = new JsSearch.TfIdfSearchIndex("isbn")
-  dataToSearch.addIndex("title");
-  dataToSearch.addIndex("author");
-  dataToSearch.addDocuments(data);
-  return dataToSearch;
+const buildIndex = (data) => {
+  if (data.length === 0) {
+    return null;
+  }
+
+  const fields = ['isbn', 'title', 'author'];
+  const engine = new JsSearch.Search(fields[0]);
+
+  engine.sanitizer = new JsSearch.LowerCaseSanitizer();
+  engine.searchIndex = new JsSearch.TfIdfSearchIndex(fields[0]);
+  fields.slice(1).forEach((f) => {
+    engine.addIndex(f);
+  });
+  engine.addDocuments(data);
+  return engine;
 };
+
+
+
 
 export { buildIndex };
