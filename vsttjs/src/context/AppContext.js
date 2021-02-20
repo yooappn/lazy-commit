@@ -17,11 +17,11 @@ const initData = (cb, ce) => {
   console.log(cfg);
 
   let url = '';
-  if (cfg !== null) {
+  if (cfg !== null && cfg !== undefined) {
     url = cfg.hasOwnProperty('sheet') ? cfg.sheet.url : '' ;
   }
 
-  if (cfg === null) {
+  if (cfg === null || cfg === undefined) {
     ce({});
     cb([]);
     return;

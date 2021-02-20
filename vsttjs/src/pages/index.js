@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import {
-  Flex,
+  Flex, Box,
   InputGroup, Input, InputLeftAddon, InputRightElement,
   Divider,
-  Button, Text,
+  Button, Text, Badge,
   Stat, StatLabel, StatHelpText
 } from '@chakra-ui/core';
 import Layout from '../components/layout';
@@ -14,13 +14,25 @@ const Home = () => {
   const [searchText, setSearchText] = useState('');
 
   const Row = ({row}) => {
+    console.log(row);
     return (
       <>
-      <Stat>
+      <Stat m="2" p="2" borderLeft="4px" borderLeftColor="gray.800">
         <StatLabel>{row.title}</StatLabel>
-        <StatHelpText>{row.author}</StatHelpText>
+
+        <Badge d="inline" borderRadius="full" px="2" colorScheme="teal">{row.author}</Badge>
+        <Box
+            d="inline"
+            color="gray.500"
+            fontWeight="semibold"
+            letterSpacing="wide"
+            fontSize="xs"
+            textTransform="uppercase"
+            ml="2"
+          >
+             links:
+        </Box>
       </Stat>
-        <Divider />
       </>
     );
   };
@@ -49,7 +61,10 @@ const Home = () => {
               </InputRightElement>
             </InputGroup>
 
-            <Text>Rows: {rows.length}, URL: {config.url}</Text>
+            <Box borderWidth="1px" borderRadius="lg" m="2" p="2">
+              <Text fontSize="sm" color="gray.500">Result Summary</Text>
+              <Text>Rows: {rows.length}, URL: {config.url}</Text>
+            </Box>
             {rows.map((row, i) => <Row row={row} key={i}/>)}
           </div>
         )}
